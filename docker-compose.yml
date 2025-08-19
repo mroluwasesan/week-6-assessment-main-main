@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ./backend
+      context: ./server
       args:
         - ATLAS_URI=${ATLAS_URI}
     ports:
@@ -14,7 +14,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: ./app
     ports:
       - "3000:3000"
     environment:
