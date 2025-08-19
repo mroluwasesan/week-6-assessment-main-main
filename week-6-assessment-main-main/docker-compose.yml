@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      args:
+        - ATLAS_URI=${ATLAS_URI}
+    ports:
+      - "5050:5050"
+    environment:
+      - ATLAS_URI=${ATLAS_URI}  # Uses the Atlas connection string
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5050  # For local dev, use backend service name in prod
+    depends_on:
+      - backend
+    restart: unless-stopped
